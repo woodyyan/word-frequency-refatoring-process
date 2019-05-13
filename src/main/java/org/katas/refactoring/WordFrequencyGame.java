@@ -1,3 +1,5 @@
+package org.katas.refactoring;
+
 import java.util.*;
 
 /**
@@ -63,7 +65,9 @@ public class WordFrequencyGame {
 
     public static void main(String[] args){
         WordFrequencyGame game = new WordFrequencyGame();
-        //When
+
         String result = game.getResult("the the is");
+
+        System.out.println(result);
     }
 }
