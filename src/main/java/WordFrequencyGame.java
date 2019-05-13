@@ -59,4 +59,11 @@ public class WordFrequencyGame {
         }
         return map;
     }
+
+
+    public static void main(String[] args){
+        WordFrequencyGame game = new WordFrequencyGame();
+        //When
+        String result = game.getResult("the the is");
+    }
 }
