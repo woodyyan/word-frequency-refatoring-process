@@ -5,3 +5,5 @@ target
 
 *.ipr
 *.iws
+
+.settings

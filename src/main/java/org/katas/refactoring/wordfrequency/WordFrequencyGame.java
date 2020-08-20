@@ -1,10 +1,7 @@
-package org.katas.refactoring;
+package org.katas.refactoring.wordfrequency;
 
 import java.util.*;
 
-/**
- * Created by jxzhong on 2018/5/22.
- */
 public class WordFrequencyGame {
     public String getResult(String inputStr) {
 
