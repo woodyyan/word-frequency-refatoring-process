@@ -47,4 +47,29 @@ public class WordFrequencyGameTest {
     }
 
     // split end
+
+    // count start
+
+    @Test
+    public void should_count_as_1_given_only_one_word() {
+        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame();
+        String result = wordFrequencyGame.getResult("the");
+        assertThat(result, is("the 1"));
+    }
+
+    @Test
+    public void should_count_same_word_given_only_one_word_repeatedly() {
+        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame();
+        String result = wordFrequencyGame.getResult("the the the");
+        assertThat(result, is("the 3"));
+    }
+
+    @Test
+    public void should_count_multiple_words_given_multiple_words() {
+        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame();
+        String result = wordFrequencyGame.getResult("the the is");
+        assertThat(result, is("the 2\nis 1"));
+    }
+
+    // count end
 }
