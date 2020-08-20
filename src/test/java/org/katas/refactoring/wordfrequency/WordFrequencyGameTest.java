@@ -1,15 +1,15 @@
 package org.katas.refactoring.wordfrequency;
 
-import org.junit.Ignore;
 import org.junit.Test;
-import org.katas.refactoring.wordfrequency.WordFrequencyGame;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-
 public class WordFrequencyGameTest {
-
-
+    @Test
+    public void smoke_test() {
+        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame();
+        String result = wordFrequencyGame.getResult("the the is");
+        assertThat(result, is("the 2\nis 1"));
+    }
 }
