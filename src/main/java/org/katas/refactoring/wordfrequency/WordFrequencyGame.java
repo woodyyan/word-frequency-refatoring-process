@@ -1,10 +1,13 @@
 package org.katas.refactoring.wordfrequency;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 public class WordFrequencyGame {
 
@@ -29,6 +32,15 @@ public class WordFrequencyGame {
         List<WordCount> wordCounts = new ArrayList<>();
         for (String item : items) {
             wordCounts.add(new WordCount(item, 1));
+        }
+        return wordCounts;
+    }
+
+    private List<WordCount> countWordNew(List<WordCount> wordCountList) {
+        List<WordCount> wordCounts = new ArrayList<>();
+        List<String> words = wordCountList.stream().map(WordCount::getValue).collect(Collectors.toList());
+        for (String word : new HashSet<>(words)) {
+            wordCounts.add(new WordCount(word, Collections.frequency(words, word)));
         }
         return wordCounts;
     }
