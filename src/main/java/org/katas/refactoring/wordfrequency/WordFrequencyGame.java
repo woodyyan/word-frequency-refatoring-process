@@ -9,62 +9,62 @@ import java.util.StringJoiner;
 public class WordFrequencyGame {
     public String getResult(String inputStr) {
         try {
-            List<Input> inputList = transferToDomainModel(inputStr);
+            List<WordCount> wordCountList = transferToDomainModel(inputStr);
 
-            inputList = countWord(inputList);
+            wordCountList = countWord(wordCountList);
 
-            inputList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
+            wordCountList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
 
-            return renderResult(inputList);
+            return renderResult(wordCountList);
         } catch (Exception e) {
             return "Calculate Error";
         }
     }
 
-    private List<Input> transferToDomainModel(String inputStr) {
+    private List<WordCount> transferToDomainModel(String inputStr) {
         //split the input string with 1 to n pieces of spaces
         String[] arr = inputStr.split("\\s+");
 
-        List<Input> inputList = new ArrayList<>();
+        List<WordCount> wordCountList = new ArrayList<>();
         for (String s : arr) {
-            Input input = new Input(s, 1);
-            inputList.add(input);
+            WordCount wordCount = new WordCount(s, 1);
+            wordCountList.add(wordCount);
         }
-        return inputList;
+        return wordCountList;
     }
 
-    private List<Input> countWord(List<Input> inputList) {
+    private List<WordCount> countWord(List<WordCount> wordCountList) {
         //get the map for the next step of sizing the same word
-        Map<String, List<Input>> map = getListMap(inputList);
+        Map<String, List<WordCount>> map = getListMap(wordCountList);
 
-        List<Input> list = new ArrayList<>();
-        for (Map.Entry<String, List<Input>> entry : map.entrySet()) {
-            Input input = new Input(entry.getKey(), entry.getValue().size());
-            list.add(input);
+        List<WordCount> list = new ArrayList<>();
+        for (Map.Entry<String, List<WordCount>> entry : map.entrySet()) {
+            WordCount wordCount = new WordCount(entry.getKey(), entry.getValue().size());
+            list.add(wordCount);
         }
-        inputList = list;
-        return inputList;
+        wordCountList = list;
+        return wordCountList;
     }
 
-    private String renderResult(List<Input> inputList) {
+    private String renderResult(List<WordCount> wordCountList) {
         StringJoiner joiner = new StringJoiner("\n");
-        for (Input w : inputList) {
+        for (WordCount w : wordCountList) {
             String s = w.getValue() + " " + w.getWordCount();
             joiner.add(s);
         }
         return joiner.toString();
     }
 
-    private Map<String, List<Input>> getListMap(List<Input> inputList) {
-        Map<String, List<Input>> map = new HashMap<>();
-        for (Input input : inputList) {
+    private Map<String, List<WordCount>> getListMap(List<WordCount> wordCountList) {
+        Map<String, List<WordCount>> map = new HashMap<>();
+        for (WordCount wordCount : wordCountList) {
 //       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
-            if (!map.containsKey(input.getValue())) {
+            if (!map.containsKey(wordCount.getValue())) {
                 ArrayList arr = new ArrayList<>();
-                arr.add(input);
-                map.put(input.getValue(), arr);
+                arr.add(wordCount);
+                map.put(wordCount.getValue(), arr);
             } else {
-                map.get(input.getValue()).add(input);
+                map.get(wordCount.getValue()).add(wordCount);
             }
         }
         return map;
