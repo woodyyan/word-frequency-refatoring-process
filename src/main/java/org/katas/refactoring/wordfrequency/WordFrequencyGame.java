@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public class WordFrequencyGame {
 
     private static final String SPACE = " ";
+    private static final String NEW_LINE = "\n";
 
     public String getResult(String inputStr) {
         try {
@@ -44,10 +45,10 @@ public class WordFrequencyGame {
     }
 
     private String renderResult(List<WordCount> wordCountList) {
-        StringJoiner joiner = new StringJoiner("\n");
-        for (WordCount w : wordCountList) {
-            String s = w.getValue() + " " + w.getWordCount();
-            joiner.add(s);
+        StringJoiner joiner = new StringJoiner(NEW_LINE);
+        for (WordCount wordCount : wordCountList) {
+            String line = wordCount.getValue() + SPACE + wordCount.getWordCount();
+            joiner.add(line);
         }
         return joiner.toString();
     }
