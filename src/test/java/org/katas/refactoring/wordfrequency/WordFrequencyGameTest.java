@@ -92,4 +92,22 @@ public class WordFrequencyGameTest {
     }
 
     // sort end
+    
+    // render start
+
+    @Test
+    public void should_render_result_when_only_one_line() {
+        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame();
+        String result = wordFrequencyGame.getResult("the");
+        assertThat(result, is("the 1"));
+    }
+
+    @Test
+    public void should_render_result_when_multiple_lines() {
+        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame();
+        String result = wordFrequencyGame.getResult("the a is");
+        assertThat(result, is("the 1\na 1\nis 1"));
+    }
+
+// render end
 }
