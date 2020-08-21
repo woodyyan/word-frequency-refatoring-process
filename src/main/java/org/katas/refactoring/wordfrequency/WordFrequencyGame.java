@@ -12,7 +12,7 @@ public class WordFrequencyGame {
 
     public String getResult(String inputStr) {
         try {
-            List<WordCount> wordCountList = transferToDomainModelNew(inputStr);
+            List<WordCount> wordCountList = transferToDomainModel(inputStr);
 
             wordCountList = countWord(wordCountList);
 
@@ -24,25 +24,13 @@ public class WordFrequencyGame {
         }
     }
 
-    private List<WordCount> transferToDomainModelNew(String input) {
+    private List<WordCount> transferToDomainModel(String input) {
         String[] items = input.trim().split(SPACE);
         List<WordCount> wordCounts = new ArrayList<>();
         for (String item : items) {
             wordCounts.add(new WordCount(item, 1));
         }
         return wordCounts;
-    }
-
-    private List<WordCount> transferToDomainModel(String inputStr) {
-        //split the input string with 1 to n pieces of spaces
-        String[] arr = inputStr.split("\\s+");
-
-        List<WordCount> wordCountList = new ArrayList<>();
-        for (String s : arr) {
-            WordCount wordCount = new WordCount(s, 1);
-            wordCountList.add(wordCount);
-        }
-        return wordCountList;
     }
 
     private List<WordCount> countWord(List<WordCount> wordCountList) {
