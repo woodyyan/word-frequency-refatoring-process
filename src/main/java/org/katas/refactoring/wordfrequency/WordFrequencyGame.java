@@ -38,7 +38,7 @@ public class WordFrequencyGame {
     private List<WordCount> countWord(List<WordCount> wordCountList) {
         List<WordCount> wordCounts = new ArrayList<>();
         List<String> words = wordCountList.stream().map(WordCount::getValue).collect(Collectors.toList());
-        for (String word : new HashSet<>(words)) {
+        for (String word : words.stream().distinct().collect(Collectors.toList())) {
             wordCounts.add(new WordCount(word, Collections.frequency(words, word)));
         }
         return wordCounts;

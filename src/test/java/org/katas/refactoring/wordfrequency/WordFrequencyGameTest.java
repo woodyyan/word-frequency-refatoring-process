@@ -1,6 +1,5 @@
 package org.katas.refactoring.wordfrequency;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
@@ -37,8 +36,6 @@ public class WordFrequencyGameTest {
         assertThat(result, is("the 1"));
     }
 
-    //TODO found a bug
-    @Ignore
     @Test
     public void should_space_will_not_be_counted() {
         WordFrequencyGame wordFrequencyGame = new WordFrequencyGame();
@@ -82,8 +79,6 @@ public class WordFrequencyGameTest {
         assertThat(result, is("the 2\nis 1"));
     }
 
-    // TODO: found a bug
-    @Ignore
     @Test
     public void should_sort_result_when_only_one_word() {
         WordFrequencyGame wordFrequencyGame = new WordFrequencyGame();
@@ -92,7 +87,7 @@ public class WordFrequencyGameTest {
     }
 
     // sort end
-    
+
     // render start
 
     @Test
@@ -109,5 +104,5 @@ public class WordFrequencyGameTest {
         assertThat(result, is("the 1\na 1\nis 1"));
     }
 
-// render end
+    // render end
 }
