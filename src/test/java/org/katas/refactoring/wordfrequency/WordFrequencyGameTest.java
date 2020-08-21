@@ -72,4 +72,24 @@ public class WordFrequencyGameTest {
     }
 
     // count end
+
+    // sort start
+
+    @Test
+    public void should_sort_result_by_count_number() {
+        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame();
+        String result = wordFrequencyGame.getResult("is the the");
+        assertThat(result, is("the 2\nis 1"));
+    }
+
+    // TODO: found a bug
+    @Ignore
+    @Test
+    public void should_sort_result_when_only_one_word() {
+        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame();
+        String result = wordFrequencyGame.getResult("is the");
+        assertThat(result, is("is 1\nthe 1"));
+    }
+
+    // sort end
 }
