@@ -2,10 +2,8 @@ package org.katas.refactoring.wordfrequency;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
@@ -17,9 +15,9 @@ public class WordFrequencyGame {
         try {
             List<WordCount> wordCountList = transferToDomainModel(inputStr);
 
-            wordCountList = countWordNew(wordCountList);
+            wordCountList = countWord(wordCountList);
 
-            wordCountList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
+            wordCountList.sort((first, second) -> second.getWordCount() - first.getWordCount());
 
             return renderResult(wordCountList);
         } catch (Exception e) {
@@ -36,26 +34,13 @@ public class WordFrequencyGame {
         return wordCounts;
     }
 
-    private List<WordCount> countWordNew(List<WordCount> wordCountList) {
+    private List<WordCount> countWord(List<WordCount> wordCountList) {
         List<WordCount> wordCounts = new ArrayList<>();
         List<String> words = wordCountList.stream().map(WordCount::getValue).collect(Collectors.toList());
         for (String word : new HashSet<>(words)) {
             wordCounts.add(new WordCount(word, Collections.frequency(words, word)));
         }
         return wordCounts;
-    }
-
-    private List<WordCount> countWord(List<WordCount> wordCountList) {
-        //get the map for the next step of sizing the same word
-        Map<String, List<WordCount>> map = getListMap(wordCountList);
-
-        List<WordCount> list = new ArrayList<>();
-        for (Map.Entry<String, List<WordCount>> entry : map.entrySet()) {
-            WordCount wordCount = new WordCount(entry.getKey(), entry.getValue().size());
-            list.add(wordCount);
-        }
-        wordCountList = list;
-        return wordCountList;
     }
 
     private String renderResult(List<WordCount> wordCountList) {
@@ -65,21 +50,6 @@ public class WordFrequencyGame {
             joiner.add(s);
         }
         return joiner.toString();
-    }
-
-    private Map<String, List<WordCount>> getListMap(List<WordCount> wordCountList) {
-        Map<String, List<WordCount>> map = new HashMap<>();
-        for (WordCount wordCount : wordCountList) {
-//       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
-            if (!map.containsKey(wordCount.getValue())) {
-                ArrayList arr = new ArrayList<>();
-                arr.add(wordCount);
-                map.put(wordCount.getValue(), arr);
-            } else {
-                map.get(wordCount.getValue()).add(wordCount);
-            }
-        }
-        return map;
     }
 
 
