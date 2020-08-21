@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.StringJoiner;
 
 public class WordFrequencyGame {
+
+    private static final String SPACE = " ";
+
     public String getResult(String inputStr) {
         try {
             List<WordCount> wordCountList = transferToDomainModel(inputStr);
@@ -19,6 +22,15 @@ public class WordFrequencyGame {
         } catch (Exception e) {
             return "Calculate Error";
         }
+    }
+
+    private List<WordCount> transferToDomainModelNew(String input) {
+        String[] items = input.trim().split(SPACE);
+        List<WordCount> wordCounts = new ArrayList<>();
+        for (String item : items) {
+            wordCounts.add(new WordCount(item, 1));
+        }
+        return wordCounts;
     }
 
     private List<WordCount> transferToDomainModel(String inputStr) {
