@@ -12,7 +12,7 @@ public class WordFrequencyGame {
 
     public String getResult(String inputStr) {
         try {
-            List<WordCount> wordCountList = transferToDomainModel(inputStr);
+            List<WordCount> wordCountList = transferToDomainModelNew(inputStr);
 
             wordCountList = countWord(wordCountList);
 
