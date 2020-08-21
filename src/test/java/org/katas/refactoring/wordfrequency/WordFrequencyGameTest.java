@@ -113,26 +113,29 @@ public class WordFrequencyGameTest {
 
     @Test
     public void should_count_specific_word_given_filter_in_word_is_the() {
-        WordFilter filter = new WordFilter("the", true);
-        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame(Collections.singletonList(filter));
+        WordFilterIn filterIn = new WordFilterIn("the");
+        WordFilters wordFilters = new WordFilters(Collections.singletonList(filterIn), Collections.emptyList());
+        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame(wordFilters);
         String result = wordFrequencyGame.getResult("the a is");
         assertThat(result, is("the 1"));
     }
 
     @Test
     public void should_count_specific_word_given_filter_out_word_is_the() {
-        WordFilter filter = new WordFilter("the", false);
-        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame(Collections.singletonList(filter));
+        WordFilter filterOut = new WordFilterOut("the");
+        WordFilters wordFilters = new WordFilters(Collections.emptyList(), Collections.singletonList(filterOut));
+        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame(wordFilters);
         String result = wordFrequencyGame.getResult("the a is");
         assertThat(result, is("a 1\nis 1"));
     }
 
     @Test
     public void should_count_specific_word_given_multiple_filters() {
-        WordFilter inFilter1 = new WordFilter("the", true);
-        WordFilter inFilter2 = new WordFilter("a", true);
-        WordFilter outFilter = new WordFilter("a", false);
-        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame(Arrays.asList(inFilter1, inFilter2, outFilter));
+        WordFilter inFilter1 = new WordFilterIn("the");
+        WordFilter inFilter2 = new WordFilterIn("a");
+        WordFilter outFilter = new WordFilterOut("a");
+        WordFilters wordFilters = new WordFilters(Arrays.asList(inFilter1, inFilter2), Collections.singletonList(outFilter));
+        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame(wordFilters);
         String result = wordFrequencyGame.getResult("the a is");
         assertThat(result, is("the 1"));
     }

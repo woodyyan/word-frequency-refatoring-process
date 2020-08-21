@@ -10,22 +10,21 @@ public class WordFrequencyGame {
 
     private static final String SPACE = " ";
     private static final String NEW_LINE = "\n";
-    private final List<WordFilter> wordFilters;
+    private final WordFilters wordFilters;
 
-    public WordFrequencyGame(List<WordFilter> wordFilters) {
-        this();
-        this.wordFilters.addAll(wordFilters);
+    public WordFrequencyGame(WordFilters wordFilters) {
+        this.wordFilters = wordFilters;
     }
 
     public WordFrequencyGame() {
-        this.wordFilters = new ArrayList<>();
+        this.wordFilters = new WordFilters(new ArrayList<>(), new ArrayList<>());
     }
 
     public String getResult(String inputStr) {
         try {
             List<WordCount> wordCountList = transferToDomainModel(inputStr);
 
-            wordCountList = filter(wordCountList);
+            wordCountList = this.wordFilters.filter(wordCountList);
 
             wordCountList = countWord(wordCountList);
 
@@ -35,20 +34,6 @@ public class WordFrequencyGame {
         } catch (Exception e) {
             return "Calculate Error";
         }
-    }
-
-    private List<WordCount> filter(List<WordCount> wordCountList) {
-        if (this.wordFilters.size() == 0) {
-            return wordCountList;
-        }
-
-        List<WordFilter> inFilters = this.wordFilters.stream().filter(WordFilter::isFilterIn).collect(Collectors.toList());
-        List<WordFilter> outFilters = this.wordFilters.stream().filter(filter -> !filter.isFilterIn()).collect(Collectors.toList());
-
-        return wordCountList.stream()
-            .filter(wordCount -> inFilters.size() == 0 || inFilters.stream().anyMatch(filter -> filter.match(wordCount.getValue())))
-            .filter(wordCount -> outFilters.size() == 0 || outFilters.stream().anyMatch(filter -> filter.match(wordCount.getValue())))
-            .collect(Collectors.toList());
     }
 
     private List<WordCount> transferToDomainModel(String input) {

@@ -1,23 +1,11 @@
 package org.katas.refactoring.wordfrequency;
 
-public class WordFilter {
-    private final String filter;
-    private final boolean filterIn;
+public abstract class WordFilter {
+    protected final String filter;
 
-    public WordFilter(String filter, boolean isFilterIn) {
+    public WordFilter(String filter) {
         this.filter = filter;
-        this.filterIn = isFilterIn;
     }
 
-    public boolean isFilterIn() {
-        return filterIn;
-    }
-
-    public boolean match(String word) {
-        if (filterIn) {
-            return filter.equals(word);
-        } else {
-            return !filter.equals(word);
-        }
-    }
+    public abstract boolean match(String word);
 }
