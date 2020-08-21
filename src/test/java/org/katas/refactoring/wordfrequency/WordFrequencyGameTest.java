@@ -2,6 +2,9 @@ package org.katas.refactoring.wordfrequency;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -105,4 +108,32 @@ public class WordFrequencyGameTest {
     }
 
     // render end
+
+    // filter
+
+    @Test
+    public void should_count_specific_word_given_filter_in_word_is_the() {
+        WordFilter filter = new WordFilter("the", true);
+        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame(Collections.singletonList(filter));
+        String result = wordFrequencyGame.getResult("the a is");
+        assertThat(result, is("the 1"));
+    }
+
+    @Test
+    public void should_count_specific_word_given_filter_out_word_is_the() {
+        WordFilter filter = new WordFilter("the", false);
+        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame(Collections.singletonList(filter));
+        String result = wordFrequencyGame.getResult("the a is");
+        assertThat(result, is("a 1\nis 1"));
+    }
+
+    @Test
+    public void should_count_specific_word_given_multiple_filters() {
+        WordFilter inFilter1 = new WordFilter("the", true);
+        WordFilter inFilter2 = new WordFilter("a", true);
+        WordFilter outFilter = new WordFilter("a", false);
+        WordFrequencyGame wordFrequencyGame = new WordFrequencyGame(Arrays.asList(inFilter1, inFilter2, outFilter));
+        String result = wordFrequencyGame.getResult("the a is");
+        assertThat(result, is("the 1"));
+    }
 }
