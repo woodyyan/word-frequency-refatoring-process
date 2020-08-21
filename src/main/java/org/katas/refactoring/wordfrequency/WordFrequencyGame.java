@@ -17,7 +17,7 @@ public class WordFrequencyGame {
         try {
             List<WordCount> wordCountList = transferToDomainModel(inputStr);
 
-            wordCountList = countWord(wordCountList);
+            wordCountList = countWordNew(wordCountList);
 
             wordCountList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
 
